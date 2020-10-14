@@ -17,7 +17,7 @@ def letsplay(players, ncards, printmode,score_stich, score_game,did_cheat):
 
   nplayers = len(players)
   stiche = np.zeros(nplayers)
-  history = np.zeros((ncards,nplayers),dtype=int)
+  history = -np.ones((ncards,nplayers),dtype=int)
   playerorder = np.arange(nplayers)
   for nturn in range(ncards):
     print(playerorder)
@@ -26,7 +26,7 @@ def letsplay(players, ncards, printmode,score_stich, score_game,did_cheat):
       cheated = did_cheat(history)
       player = players[playerid]
       if nturn == 0: # first round, everyone plays with cards covered
-        card = player(nplayers, ncards, nturn, playerid,  np.zeros((ncards,nplayers),dtype=int), cheated)
+        card = player(nplayers, ncards, nturn, playerid,  -np.ones((ncards,nplayers),dtype=int), cheated)
       else: # after that, we go round-robin with open cards
         card = player(nplayers, ncards, nturn, playerid, history, cheated)
 
@@ -36,6 +36,7 @@ def letsplay(players, ncards, printmode,score_stich, score_game,did_cheat):
     stich, winnerid =score_stich(history[nturn,:], did_cheat(history))
     stiche += stich
     playerorder = np.roll(np.arange(nplayers),-winnerid) # winner comes first next round
+
     if True:
      print()
      print(history[:nturn+1])
