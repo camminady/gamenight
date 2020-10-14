@@ -36,7 +36,6 @@ def score_game(cards):
 def did_cheat(history):
   """Determines who of the players has (at any point) cheated."""
 
-
   ncards, nplayers = history.shape
   cheated = False * np.ones(nplayers,dtype=bool)
 
