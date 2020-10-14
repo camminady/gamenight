@@ -23,13 +23,40 @@ def score_game(cards):
   """Distributes the points after a full match."""
 
   winner = cards == np.max(cards)
+  cardsCpy = np.copy(cards)
+  result = np.zeros(len(winner))
+  alreadyWon = np.zeros(len(winner))
+
+  # first places
+  result[winner == True] = 3
+  alreadyWon[winner == True] = 1
+  cardsCpy[winner == True] = -1
+
+  # second places
+  winner = cardsCpy == np.max(cardsCpy)
+  for i in range(0,len(winner)):
+    if(winner[i] == True and alreadyWon[i]== 0):
+      result[i] = 2
+      alreadyWon[i] = 1
+      cardsCpy[i] = -1
+
+  # 3rd places
+  winner = cardsCpy == np.max(cardsCpy)
+  for i in range(0, len(winner)):
+    if (winner[i] == True and alreadyWon[i] == 0):
+      result[i] = 1
+      alreadyWon[i] = 1
+      cardsCpy[i] = -1
+
+
+
   # Normalize reward:
   # 1 winner: 3 points
   # 2 winnnr: 2 points
   # 3 winner: 1 point
   # 4 winner: 0 points
   # (but the code should work with n players too)
-  return winner*(len(cards)-np.sum(winner))
+  return result
 
 
 
