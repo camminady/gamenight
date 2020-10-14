@@ -1,6 +1,6 @@
 import numpy as np
 
-def play(nplayers, ncards, nturn, playerid, history):
+def play(nplayers, ncards, nturn, playerid, history, cheated):
   """
   Play the next card.
   Keyword arguments:
@@ -8,14 +8,18 @@ def play(nplayers, ncards, nturn, playerid, history):
     ncards    -- number of initial cards (cards 0,...,ncards-1).
     nturn     -- number of turns already played.
     playyerid -- your player id to access the history matrix.
-    history   -- matrix of size (turn,nplayers) with the cards already played.
+    history   -- matrix of size (ncards,nplayers) with the cards already played.
+                 Note: 
+                      -- "unplayed slots" are filled with -1
+                      -- after the first round, the winner will come first and we go round-robin with open cards
+                         so if you are third in line, you can see the cards of other two player in the row `nturn` of history
   Return:
     card      -- the card that you play this turn. It has to be valid!
   """
 
   # As an example, this bot plays a random, unplayed card.
 
-  mycards = history[:,playerid]     # these are the cards I played
+  mycards = history[:nturn,playerid]     # these are the cards I played
 
   possiblecards = np.arange(ncards) # cards from 0 to ncards -1 
 

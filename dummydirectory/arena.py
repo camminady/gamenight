@@ -17,19 +17,28 @@ def letsplay(players, ncards, printmode,score_stich, score_game,did_cheat):
 
   nplayers = len(players)
   stiche = np.zeros(nplayers)
-  history = np.empty((0,nplayers))
+  history = np.zeros((ncards,nplayers),dtype=int)
+  playerorder = np.arange(nplayers)
   for nturn in range(ncards):
-    cards = []
-    for playerid, player in enumerate(players):
-      card = player(nplayers, ncards, nturn, playerid, history)
-      cards.append(card)
-    cards = np.array(cards)
-    history = np.vstack([history,cards])
-    
-    cheated = did_cheat(history,ncards)
-    stich =score_stich(cards, cheated)
-    stiche += stich
+    print(playerorder)
+    for playerid in playerorder:
+      print(history[:nturn+1,:])
+      cheated = did_cheat(history)
+      player = players[playerid]
+      if nturn == 0: # first round, everyone plays with cards covered
+        card = player(nplayers, ncards, nturn, playerid,  np.zeros((ncards,nplayers),dtype=int), cheated)
+      else: # after that, we go round-robin with open cards
+        card = player(nplayers, ncards, nturn, playerid, history, cheated)
 
+      history[nturn,playerid] = card
+
+    
+    stich, winnerid =score_stich(history[nturn,:], did_cheat(history))
+    stiche += stich
+    playerorder = np.roll(np.arange(nplayers),-winnerid) # winner comes first next round
+    if True:
+     print()
+     print(history[:nturn+1])
     if printmode:
       time.sleep(1)
       print(f"\n\n\nIt's turn {nturn}. Up to now, the points are:")
