@@ -26,3 +26,20 @@ def score_game(cards):
 
 
 
+def did_cheat(history,ncards):
+  """Determines who of the players has cheated."""
+  
+  turns, nplayers = history.shape
+  cheated = False* np.ones(nplayers,dtype=bool)
+  for i in range(nplayers):
+    x = history[:,i]
+    if len(np.unique(x)) != len(x):
+      cheated[i] = True
+    for xi in x:
+      if not xi in np.arange(ncards):
+        cheated[i] = True # a card that is not in [0,...,ncards-1]
+ 
+  return cheated
+  
+
+
