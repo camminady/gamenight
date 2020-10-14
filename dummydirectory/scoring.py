@@ -1,9 +1,12 @@
 import numpy as np 
 
-def score_stich(cards):
+def score_stich(cards, cheated):
   """Distributes the reward."""
 
-  winner = cards == np.max(cards)
+  cardscopy = np.copy(cards)
+  cardscopy[cheated] = -99999999
+
+  winner = cardscopy == np.max(cardscopy)
   # Normalize reward:
   # 1 winner: 1   point
   # 2 winnnr: 1/2 points

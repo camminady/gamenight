@@ -23,13 +23,11 @@ def letsplay(players, ncards, printmode,score_stich, score_game,did_cheat):
     for playerid, player in enumerate(players):
       card = player(nplayers, ncards, nturn, playerid, history)
       cards.append(card)
-    
-    history = np.vstack([history,np.array([cards])])
+    cards = np.array(cards)
+    history = np.vstack([history,cards])
     
     cheated = did_cheat(history,ncards)
-    print(cheated)
-
-    stich =score_stich(cards)
+    stich =score_stich(cards, cheated)
     stiche += stich
 
     if printmode:
