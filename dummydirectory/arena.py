@@ -60,7 +60,7 @@ def printTurn(cheated, nturn,stich,cards, playerorder):
   print(f"# Team 0 plays: {int(cards[0])}                      #")
   print(f"# Team 1 plays: {int(cards[1])}                      #")
   print(f"# Team 2 plays: {int(cards[2])}                      #")
-  print(f"# Team 4 plays: {int(cards[3])}                      #")
+  print(f"# Team 3 plays: {int(cards[3])}                      #")
   print( "# ------------------------------------ #")
   if(any(cheated)):
     print("# There are teams that try to cheat!   #")
