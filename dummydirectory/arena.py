@@ -45,7 +45,7 @@ def letsplay(players, ncards, printmode,score_stich, score_game,did_cheat):
     if printmode:
       printTurn(cheated,nturn,stich,history[nturn,:],playerorderCopy)
 
-  score = score_game(stiche)
+  score = score_game(stiche,did_cheat(history))
   if printmode:
     printResults(stiche, score)
 
@@ -109,12 +109,12 @@ def printTurn(cheated, nturn,stich,cards, playerorder):
 def printResults(stiche, score):
   print(f"\n############## GAME OVER ###############")
   print(f"# Final Score:                         #")
-  print(f"# Team 0 won {int(stiche[0])} times and gets {int(score[0])} points!#")
-  print(f"# Team 1 won {int(stiche[1])} times and gets {int(score[1])} points!#")
-  print(f"# Team 2 won {int(stiche[2])} times and gets {int(score[2])} points!#")
-  print(f"# Team 4 won {int(stiche[3])} times and gets {int(score[3])} points!#")
+  print(f"#Team 0 has {int(stiche[0])} stiche and gets {int(score[0])} points!#")
+  print(f"#Team 1 has {int(stiche[1])} stiche and gets {int(score[1])} points!#")
+  print(f"#Team 2 has {int(stiche[2])} stiche and gets {int(score[2])} points!#")
+  print(f"#Team 3 has {int(stiche[3])} stiche and gets {int(score[3])} points!#")
   print("########################################")
-  input(" \nPRESS ANY KEY TO EXIT !!!\n")
+  #input(" \nPRESS ANY KEY TO EXIT !!!\n")
 
  # print("\n\nThe game ended. Final score:")
  # for playerid, point in enumerate(stiche):
@@ -127,7 +127,7 @@ def printResults(stiche, score):
 
 def printIntro():
   print("#########################################")
-  print("#  ♥♠  _____    _     ___    __    ♦♣   #")
+  print("#  ♥♠  _____    _     ___   ___    ♦♣   #")
   print("#  ♠♦ /    |   / \\   |  |  |   \\   ♣♥   #")
   print("#  ♦♣ |       /___\\  |__   |   |   ♥♠   #")
   print("#  ♣♥ \\____| /     \\ |  \\  |__/    ♠♦   #")
@@ -138,7 +138,7 @@ def printIntro():
   print("#   |   \\|  ||  \___| |    |    ||     #")
   print("#                                      #")
   print("########################################")
-  print(" ")
+  print("\n")
   input(" PRESS ANY KEY TO START !!!")
 
   return 0
