@@ -27,17 +27,18 @@ def score_game(cards, cheated):
   result = np.zeros(len(winner))
   alreadyWon = np.zeros(len(winner))
 
-  alreadyWon[cheated==True] =1
+  # filter out cheater
+  for i in range(0,len(winner)):
+      if(cheated[i] == True):
+        alreadyWon[i] = 1
+        cardsCpy[i] = -1
+
   # first places
   for i in range(0,len(winner)):
     if(winner[i] == True and alreadyWon[i]== 0):
-      result[i] = 2
+      result[i] = 3
       alreadyWon[i] = 1
       cardsCpy[i] = -1
-
-  result[winner == True] = 3
-  alreadyWon[winner == True] = 1
-  cardsCpy[winner == True] = -1
 
   # second places
   winner = cardsCpy == np.max(cardsCpy)
